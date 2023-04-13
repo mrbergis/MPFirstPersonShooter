@@ -43,6 +43,7 @@
   <ItemGroup>
      <Compile Include="Assets/Scripts/PlayerLogic.cs" />
      <Compile Include="Assets/Scripts/FirstPersonLogic.cs" />
+     <Compile Include="Assets/Scripts/WeaponLogic.cs" />
      <Folder Include="Assets" />
      <Folder Include="Assets/AnimatorControllers" />
      <Folder Include="Assets/Scripts" />
