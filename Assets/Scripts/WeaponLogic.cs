@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class WeaponLogic : MonoBehaviour
@@ -22,6 +23,8 @@ public class WeaponLogic : MonoBehaviour
     
     [SerializeField]
     GameObject bulletImpactObj;
+
+    [SerializeField] private TMP_Text ammoText;
     
     bool _isReloading = false;
     
@@ -33,6 +36,16 @@ public class WeaponLogic : MonoBehaviour
         _firstPersonLogic = GetComponentInParent<FirstPersonLogic>();
         _muzzleFlash = GetComponentInChildren<ParticleSystem>();
         _muzzleFlashLight = GetComponentInChildren<Light>();
+        
+        SetAmmoText();
+    }
+    
+    private void SetAmmoText()
+    {
+        if(ammoText)
+        {
+            ammoText.text = "Ammo: " + _ammoCount;
+        }
     }
     
     private void Update()
@@ -74,6 +87,8 @@ public class WeaponLogic : MonoBehaviour
     private void Shoot()
     {
         --_ammoCount;
+        
+        SetAmmoText();
         
         if (_animator)
         {
@@ -122,6 +137,10 @@ public class WeaponLogic : MonoBehaviour
     {
         _isReloading = true;
         
-        _ammoCount = MAX_AMMO;
+        if(!_isReloading)
+        {
+            _ammoCount = MAX_AMMO;
+            SetAmmoText();
+        }
     }
 }
