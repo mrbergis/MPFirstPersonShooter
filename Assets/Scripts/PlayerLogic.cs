@@ -28,11 +28,17 @@ public class PlayerLogic : MonoBehaviour
     
     WeaponLogic _weaponLogic;
     
+    AudioSource _audioSource;
+    
+    [SerializeField]
+    List<AudioClip> footstepSounds;
+    
     private void Start()
     {
         _characterController = GetComponent<CharacterController>();
         _animator = GetComponent<Animator>();
         _weaponLogic = GetComponentInChildren<WeaponLogic>();
+        _audioSource = GetComponent<AudioSource>();
     }
     
     private void Update()
@@ -95,6 +101,14 @@ public class PlayerLogic : MonoBehaviour
         }
     }
     
+    private void PlaySound(AudioClip sound, float volume = 1.0f)
+    {
+        if (_audioSource && sound)
+        {
+            _audioSource.volume = volume;
+            _audioSource.PlayOneShot(sound);
+        }
+    }
     public float GetRotationY()
     {
         return _rotationY;
@@ -109,5 +123,12 @@ public class PlayerLogic : MonoBehaviour
     {
         return _isCrouching;
     }
+    
+    public void PlayFootstepSound()
+    {
+        int soundIndex = Random.Range(0, footstepSounds.Count);
+        PlaySound(footstepSounds[soundIndex]);
+    }
+    
 }
 
