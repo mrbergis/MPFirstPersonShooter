@@ -12,6 +12,8 @@ public class WeaponLogic : MonoBehaviour
     
     Animator _animator;
     Camera _mainCamera;
+    PlayerLogic _playerLogic;
+    FirstPersonLogic _firstPersonLogic;
     
     bool _isReloading = false;
     
@@ -19,6 +21,8 @@ public class WeaponLogic : MonoBehaviour
     {
         _animator = GetComponentInParent<Animator>();
         _mainCamera = Camera.main;
+        _playerLogic = GetComponentInParent<PlayerLogic>();
+        _firstPersonLogic = GetComponentInParent<FirstPersonLogic>();
     }
     
     private void Update()
@@ -65,6 +69,16 @@ public class WeaponLogic : MonoBehaviour
         {
             Debug.Log("Hit object: " + rayHit.collider.name);
             Debug.Log("Hit Pos: " + rayHit.point);
+        }
+        
+        if(_firstPersonLogic)
+        {
+            _firstPersonLogic.AddRecoil();
+        }
+         
+        if(_playerLogic)
+        {
+            _playerLogic.AddRecoil();
         }
     }
     

@@ -81,5 +81,10 @@ public class PlayerLogic : MonoBehaviour
     {
         return _rotationY;
     }
+    
+    public void AddRecoil()
+    {
+        _rotationY += Random.Range(-1.0f, 1.0f);
+    }
 }
 
