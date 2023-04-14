@@ -7,24 +7,30 @@ public class PlayerLogic : MonoBehaviour
     private float _rotationY;
     private const float ROTATION_SPEED = 2.0f;
     
-    float _horizontalInput;
-    float _verticalInput;
+    private float _horizontalInput;
+    private float _verticalInput;
     
-    const float MOVEMENT_SPEED = 5.0f;
+    private const float MOVEMENT_SPEED = 5.0f;
     
-    Vector3 _horizontalMovement;
-    Vector3 _verticalMovement;
+    private Vector3 _horizontalMovement;
+    private Vector3 _verticalMovement;
     
-    CharacterController _characterController;
+    private CharacterController _characterController;
     private Animator _animator;
     
-    void Start()
+    [SerializeField]
+    Transform leftHandTarget;
+
+    [SerializeField]
+    Transform rightHandTarget;
+    
+    private void Start()
     {
         _characterController = GetComponent<CharacterController>();
         _animator = GetComponent<Animator>();
     }
     
-    void Update()
+    private void Update()
     {
         _rotationY += Input.GetAxis("Mouse X") * ROTATION_SPEED;
         transform.rotation = Quaternion.Euler(0, _rotationY, 0);
@@ -33,7 +39,7 @@ public class PlayerLogic : MonoBehaviour
         _verticalInput = Input.GetAxis("Vertical");
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         _horizontalMovement = transform.right * _horizontalInput * MOVEMENT_SPEED * Time.deltaTime;
         _verticalMovement = transform.forward * _verticalInput * MOVEMENT_SPEED * Time.deltaTime;
@@ -51,9 +57,29 @@ public class PlayerLogic : MonoBehaviour
        
     }
     
-
+    private void OnAnimatorIK(int layerIndex)
+    {
+        if(_animator)
+        {
+            SetHandIK(AvatarIKGoal.LeftHand, leftHandTarget);
+            SetHandIK(AvatarIKGoal.RightHand, rightHandTarget);
+        }
+    }
+    
+    private void SetHandIK(AvatarIKGoal avatarIKGoal, Transform target)
+    {
+        if(target)
+        {
+            _animator.SetIKPosition(avatarIKGoal, target.position);
+            _animator.SetIKRotation(avatarIKGoal, target.rotation);
+            _animator.SetIKPositionWeight(avatarIKGoal, 1.0f);
+            _animator.SetIKRotationWeight(avatarIKGoal, 1.0f);
+        }
+    }
+    
     public float GetRotationY()
     {
         return _rotationY;
     }
 }
+

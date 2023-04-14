@@ -29,4 +29,5 @@ public class FirstPersonLogic : MonoBehaviour
     {
         transform.rotation = Quaternion.Euler(_rotationX, _playerLogic.GetRotationY(), 0);
     }
+    
 }
