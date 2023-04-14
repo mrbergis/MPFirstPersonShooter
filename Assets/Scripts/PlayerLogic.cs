@@ -24,6 +24,8 @@ public class PlayerLogic : MonoBehaviour
     [SerializeField]
     Transform rightHandTarget;
     
+    bool _isCrouching = false;
+    
     private void Start()
     {
         _characterController = GetComponent<CharacterController>();
@@ -37,6 +39,15 @@ public class PlayerLogic : MonoBehaviour
         
         _horizontalInput = Input.GetAxis("Horizontal");
         _verticalInput = Input.GetAxis("Vertical");
+        
+        if(Input.GetKeyDown(KeyCode.C))
+        {
+            _isCrouching = !_isCrouching;
+            if(_animator)
+            {
+                _animator.SetBool("IsCrouching", _isCrouching);
+            }
+        }
     }
 
     private void FixedUpdate()
@@ -44,7 +55,7 @@ public class PlayerLogic : MonoBehaviour
         _horizontalMovement = transform.right * _horizontalInput * MOVEMENT_SPEED * Time.deltaTime;
         _verticalMovement = transform.forward * _verticalInput * MOVEMENT_SPEED * Time.deltaTime;
 
-        if (_characterController)
+        if (_characterController  && !_isCrouching)
         {
             _characterController.Move(_horizontalMovement + _verticalMovement);
         }
@@ -85,6 +96,11 @@ public class PlayerLogic : MonoBehaviour
     public void AddRecoil()
     {
         _rotationY += Random.Range(-1.0f, 1.0f);
+    }
+    
+    public bool IsCrouching()
+    {
+        return _isCrouching;
     }
 }
 

@@ -830,6 +830,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c1a4bf1892834d7bb328a8eeae99376, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  crouchingPosition: {x: 0, y: 1.111, z: 0}
 --- !u!1001 &1150727669
 PrefabInstance:
   m_ObjectHideFlags: 0

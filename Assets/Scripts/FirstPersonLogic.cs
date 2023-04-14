@@ -16,9 +16,18 @@ public class FirstPersonLogic : MonoBehaviour
     bool _recoilAnim = false;
     float _recoilAnimProgress;
     
+    [SerializeField]
+    Vector3 crouchingPosition;
+    
+    Vector3 _defaultPosition;
+
+    const float CROUCH_LERP_SPEED = 4.5f;
+    const float DEFAULT_LERP_SPEED = 10.0f;
+    
     void Start()
     {
         _playerLogic = GetComponentInParent<PlayerLogic>();
+        _defaultPosition = transform.localPosition;
     }
     
     void Update()
@@ -45,6 +54,20 @@ public class FirstPersonLogic : MonoBehaviour
                 _rotationX = _targetRotationX;
                 _recoilAnim = false;
                 _recoilAnimProgress = 0.0f;
+            }
+        }
+        
+        if(_playerLogic)
+        {
+            if(_playerLogic.IsCrouching())
+            {
+                transform.localPosition = Vector3.Lerp(transform.localPosition,
+                    crouchingPosition, Time.deltaTime * CROUCH_LERP_SPEED);
+            }
+            else
+            {
+                transform.localPosition = Vector3.Lerp(transform.localPosition, 
+                    _defaultPosition, Time.deltaTime * DEFAULT_LERP_SPEED);
             }
         }
     }
