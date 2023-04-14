@@ -26,10 +26,13 @@ public class PlayerLogic : MonoBehaviour
     
     bool _isCrouching = false;
     
+    WeaponLogic _weaponLogic;
+    
     private void Start()
     {
         _characterController = GetComponent<CharacterController>();
         _animator = GetComponent<Animator>();
+        _weaponLogic = GetComponentInChildren<WeaponLogic>();
     }
     
     private void Update()
@@ -72,7 +75,11 @@ public class PlayerLogic : MonoBehaviour
     {
         if(_animator)
         {
-            SetHandIK(AvatarIKGoal.LeftHand, leftHandTarget);
+            if(_weaponLogic && !_weaponLogic.IsReloading())
+            {
+                SetHandIK(AvatarIKGoal.LeftHand, leftHandTarget);
+            }
+            
             SetHandIK(AvatarIKGoal.RightHand, rightHandTarget);
         }
     }

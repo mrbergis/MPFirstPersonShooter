@@ -55,7 +55,7 @@ public class WeaponLogic : MonoBehaviour
             _cooldown -= Time.deltaTime;
         }else
         {
-            if(Input.GetButton("Fire1"))
+            if(Input.GetButton("Fire1") && !_isReloading)
             {
                 if(_ammoCount > 0)
                 {
@@ -127,7 +127,7 @@ public class WeaponLogic : MonoBehaviour
         }
 
         if(_muzzleFlashLight)
-        {
+        { 
             _muzzleFlashLight.enabled = true;
             _lightTimer = MAX_LIGHT_TIME;
         }
@@ -136,7 +136,21 @@ public class WeaponLogic : MonoBehaviour
     private void Reload()
     {
         _isReloading = true;
-        
+
+        if (_animator)
+        {
+            _animator.SetTrigger("Reload");
+        }
+    }
+    
+    public bool IsReloading()
+    {
+        return _isReloading;
+    }
+    public void SetReloadingState(bool isReloading)
+    {
+        _isReloading = isReloading;
+
         if(!_isReloading)
         {
             _ammoCount = MAX_AMMO;
