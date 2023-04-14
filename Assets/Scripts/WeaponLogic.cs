@@ -20,6 +20,9 @@ public class WeaponLogic : MonoBehaviour
     const float MAX_LIGHT_TIME = 0.2f;
     float _lightTimer = 0.0f;
     
+    [SerializeField]
+    GameObject bulletImpactObj;
+    
     bool _isReloading = false;
     
     private void Start()
@@ -84,6 +87,14 @@ public class WeaponLogic : MonoBehaviour
         {
             Debug.Log("Hit object: " + rayHit.collider.name);
             Debug.Log("Hit Pos: " + rayHit.point);
+            
+            // Spawn Bullet Impact FX
+            if(bulletImpactObj)
+            {
+                GameObject.Instantiate(bulletImpactObj, rayHit.point, 
+                    Quaternion.FromToRotation(Vector3.up, rayHit.normal) 
+                    * Quaternion.Euler(-90, 0, 0));
+            }
         }
         
         if(_firstPersonLogic)

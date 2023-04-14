@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1757bb0b-b2f0-4ef2-bcae-fedbd559fdb7" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.FirstPersonShooter/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.FirstPersonShooter/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assembly-CSharp.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Assembly-CSharp.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/WeaponLogic.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/WeaponLogic.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FirstPersonShooter.sln" beforeDir="false" afterPath="$PROJECT_DIR$/FirstPersonShooter.sln" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" afterDir="false" />
-    </list>
+    <list default="true" id="1757bb0b-b2f0-4ef2-bcae-fedbd559fdb7" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -75,7 +68,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1681417143186</updated>
-      <workItem from="1681417159875" duration="8786000" />
+      <workItem from="1681417159875" duration="9202000" />
     </task>
     <servers />
   </component>
