@@ -28,6 +28,17 @@ public class WeaponLogic : MonoBehaviour
     
     bool _isReloading = false;
     
+    AudioSource _audioSource;
+
+    [SerializeField]
+    AudioClip shootSound;
+
+    [SerializeField]
+    AudioClip emptyClipSound;
+
+    [SerializeField]
+    AudioClip reloadingSound;
+    
     private void Start()
     {
         _animator = GetComponentInParent<Animator>();
@@ -36,6 +47,8 @@ public class WeaponLogic : MonoBehaviour
         _firstPersonLogic = GetComponentInParent<FirstPersonLogic>();
         _muzzleFlash = GetComponentInChildren<ParticleSystem>();
         _muzzleFlashLight = GetComponentInChildren<Light>();
+        
+        _audioSource = GetComponent<AudioSource>();
         
         SetAmmoText();
     }
@@ -64,6 +77,7 @@ public class WeaponLogic : MonoBehaviour
                 else
                 {
                     // Play empty clip sound
+                    PlaySound(emptyClipSound);
                 }
 
                 _cooldown = SHOT_COOLDOWN;
@@ -94,6 +108,8 @@ public class WeaponLogic : MonoBehaviour
         {
             _animator.SetTrigger("Shoot");
         }
+        
+        PlaySound(shootSound);
         
         Ray ray = new Ray(_mainCamera.transform.position, _mainCamera.transform.forward);
         RaycastHit rayHit;
@@ -140,6 +156,17 @@ public class WeaponLogic : MonoBehaviour
         if (_animator)
         {
             _animator.SetTrigger("Reload");
+        }
+        
+        PlaySound(reloadingSound, 0.5f);
+    }
+    
+    void PlaySound(AudioClip sound, float volume = 1.0f)
+    {
+        if(_audioSource && sound)
+        {
+            _audioSource.volume = volume;
+            _audioSource.PlayOneShot(sound);
         }
     }
     
