@@ -15,6 +15,11 @@ public class WeaponLogic : MonoBehaviour
     PlayerLogic _playerLogic;
     FirstPersonLogic _firstPersonLogic;
     
+    ParticleSystem _muzzleFlash;
+    Light _muzzleFlashLight;
+    const float MAX_LIGHT_TIME = 0.2f;
+    float _lightTimer = 0.0f;
+    
     bool _isReloading = false;
     
     private void Start()
@@ -23,6 +28,8 @@ public class WeaponLogic : MonoBehaviour
         _mainCamera = Camera.main;
         _playerLogic = GetComponentInParent<PlayerLogic>();
         _firstPersonLogic = GetComponentInParent<FirstPersonLogic>();
+        _muzzleFlash = GetComponentInChildren<ParticleSystem>();
+        _muzzleFlashLight = GetComponentInChildren<Light>();
     }
     
     private void Update()
@@ -50,6 +57,14 @@ public class WeaponLogic : MonoBehaviour
         if(Input.GetButtonDown("Fire2"))
         {
             Reload();
+        }
+        
+        if(_lightTimer > 0.0f)
+        {
+            _lightTimer -= Time.deltaTime;
+        }else
+        {
+            _muzzleFlashLight.enabled = false;
         }
     }
 
@@ -79,6 +94,16 @@ public class WeaponLogic : MonoBehaviour
         if(_playerLogic)
         {
             _playerLogic.AddRecoil();
+        }
+        if(_muzzleFlash)
+        {
+            _muzzleFlash.Play(true);
+        }
+
+        if(_muzzleFlashLight)
+        {
+            _muzzleFlashLight.enabled = true;
+            _lightTimer = MAX_LIGHT_TIME;
         }
     }
     
