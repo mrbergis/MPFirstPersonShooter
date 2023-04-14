@@ -4,6 +4,7 @@
     <list default="true" id="1757bb0b-b2f0-4ef2-bcae-fedbd559fdb7" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.FirstPersonShooter/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.FirstPersonShooter/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayerLogic.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PlayerLogic.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/WeaponLogic.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/WeaponLogic.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,7 +73,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1681417143186</updated>
-      <workItem from="1681417159875" duration="15574000" />
+      <workItem from="1681417159875" duration="16206000" />
     </task>
     <servers />
   </component>

@@ -127,8 +127,11 @@ public class PlayerLogic : MonoBehaviour
     public void PlayFootstepSound()
     {
         int soundIndex = Random.Range(0, footstepSounds.Count);
-        PlaySound(footstepSounds[soundIndex]);
+        if (soundIndex > 0)
+        {
+            PlaySound(footstepSounds[soundIndex]);
+        }
     }
-    
+     
 }
 

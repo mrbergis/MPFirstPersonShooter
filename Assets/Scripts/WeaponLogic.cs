@@ -39,8 +39,13 @@ public class WeaponLogic : MonoBehaviour
     [SerializeField]
     AudioClip reloadingSound;
     
+    Vector3 m_startPosition;
+    const float TIME_SCALE = 2.0f;
+    
     private void Start()
     {
+        Cursor.visible = false;
+        
         _animator = GetComponentInParent<Animator>();
         _mainCamera = Camera.main;
         _playerLogic = GetComponentInParent<PlayerLogic>();
@@ -49,6 +54,8 @@ public class WeaponLogic : MonoBehaviour
         _muzzleFlashLight = GetComponentInChildren<Light>();
         
         _audioSource = GetComponent<AudioSource>();
+        
+        m_startPosition = transform.localPosition;
         
         SetAmmoText();
     }
@@ -63,6 +70,12 @@ public class WeaponLogic : MonoBehaviour
     
     private void Update()
     {
+        transform.localPosition = m_startPosition 
+                                  + new Vector3(
+                                      0.0f, 
+                                      Mathf.Sin(Time.time * TIME_SCALE) / 100.0f, 
+                                      0.0f);
+        
         if (_cooldown > 0.0f)
         {
             _cooldown -= Time.deltaTime;
