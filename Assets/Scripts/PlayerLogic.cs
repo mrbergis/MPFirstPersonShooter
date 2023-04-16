@@ -40,6 +40,8 @@ public class PlayerLogic : NetworkBehaviour
     [SerializeField]
     SkinnedMeshRenderer headRenderer;
     
+    NetworkAnimator _networkAnimator;
+    
     private void Start()
     {
         SetupCamera();
@@ -48,7 +50,8 @@ public class PlayerLogic : NetworkBehaviour
         _animator = GetComponent<Animator>();
         _weaponLogic = GetComponentInChildren<WeaponLogic>();
         _audioSource = GetComponent<AudioSource>();
-
+        _networkAnimator = GetComponent<NetworkAnimator>();
+        
         SetupHeadRendering();
     }
     
@@ -185,6 +188,32 @@ public class PlayerLogic : NetworkBehaviour
     public bool IsLocalPlayer()
     {
         return isLocalPlayer;
+    }
+    
+    public void PlayShootAnimation()
+    {
+        if(_animator)
+        {
+            _animator.SetTrigger("Shoot");
+        }
+
+        if(_networkAnimator)
+        {
+            _networkAnimator.SetTrigger("Shoot");
+        }
+    }
+
+    public void PlayReloadAnimation()
+    {
+        if (_animator)
+        {
+            _animator.SetTrigger("Reload");
+        }
+
+        if (_networkAnimator)
+        {
+            _networkAnimator.SetTrigger("Reload");
+        }
     }
 }
 

@@ -11,7 +11,6 @@ public class WeaponLogic : MonoBehaviour
     const float SHOT_COOLDOWN = 0.15f;
     float _cooldown = 0.0f;
     
-    Animator _animator;
     PlayerLogic _playerLogic;
     FirstPersonLogic _firstPersonLogic;
     
@@ -47,7 +46,6 @@ public class WeaponLogic : MonoBehaviour
     {
         Cursor.visible = false;
         
-        _animator = GetComponentInParent<Animator>();
         _playerCamera = GetComponentInParent<Camera>();
         _playerLogic = GetComponentInParent<PlayerLogic>();
         _firstPersonLogic = GetComponentInParent<FirstPersonLogic>();
@@ -119,9 +117,9 @@ public class WeaponLogic : MonoBehaviour
         
         SetAmmoText();
         
-        if (_animator)
+        if(_playerLogic)
         {
-            _animator.SetTrigger("Shoot");
+            _playerLogic.PlayShootAnimation();
         }
         
         PlaySound(shootSound);
@@ -168,9 +166,9 @@ public class WeaponLogic : MonoBehaviour
     {
         _isReloading = true;
 
-        if (_animator)
+        if (_playerLogic)
         {
-            _animator.SetTrigger("Reload");
+            _playerLogic.PlayReloadAnimation();
         }
         
         PlaySound(reloadingSound, 0.5f);

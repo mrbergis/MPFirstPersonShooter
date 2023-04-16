@@ -519,6 +519,7 @@ GameObject:
   - component: {fileID: 7453060224201319547}
   - component: {fileID: 1235129533010778721}
   - component: {fileID: 578292185745594295}
+  - component: {fileID: 8556777279715830445}
   m_Layer: 0
   m_Name: Swat
   m_TagString: Untagged
@@ -753,6 +754,23 @@ MonoBehaviour:
   positionPrecision: 0.01
   scalePrecision: 0.01
   timelineOffset: 0
+--- !u!114 &8556777279715830445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7759701165154002802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f6f3bf89aa97405989c802ba270f815, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  clientAuthority: 0
+  animator: {fileID: 3892239692162000818}
 --- !u!1 &7886447580574576709
 GameObject:
   m_ObjectHideFlags: 0
