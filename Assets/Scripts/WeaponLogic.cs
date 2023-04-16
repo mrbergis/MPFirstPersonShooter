@@ -21,8 +21,6 @@ public class WeaponLogic : MonoBehaviour
     
     [SerializeField]
     GameObject bulletImpactObj;
-
-    [SerializeField] private TMP_Text ammoText;
     
     bool _isReloading = false;
     
@@ -77,9 +75,9 @@ public class WeaponLogic : MonoBehaviour
     
     private void SetAmmoText()
     {
-        if(ammoText)
+        if(UIManager.Instance && _playerLogic && _playerLogic.IsLocalPlayer())
         {
-            ammoText.text = "Ammo: " + _ammoCount;
+            UIManager.Instance.SetAmmoText(_ammoCount);
         }
     }
     

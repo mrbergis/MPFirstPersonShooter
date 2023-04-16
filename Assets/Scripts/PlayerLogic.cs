@@ -58,6 +58,8 @@ public class PlayerLogic : NetworkBehaviour
         _networkAnimator = GetComponent<NetworkAnimator>();
         
         SetupHeadRendering();
+        
+        SetHealthText();
     }
     
     private void Update()
@@ -116,6 +118,14 @@ public class PlayerLogic : NetworkBehaviour
             }
             
             SetHandIK(AvatarIKGoal.RightHand, rightHandTarget);
+        }
+    }
+    
+    void SetHealthText()
+    {
+        if (UIManager.Instance && isLocalPlayer)
+        {
+            UIManager.Instance.SetHealthText(_health);
         }
     }
     
@@ -263,6 +273,8 @@ public class PlayerLogic : NetworkBehaviour
     void RpcSetHealth(int health)
     {
         _health = health;
+        
+        SetHealthText();
     }
 
     public bool IsDead()
