@@ -32,6 +32,11 @@ public class FirstPersonLogic : MonoBehaviour
     
     void Update()
     {
+        if (_playerLogic && !_playerLogic.IsLocalPlayer() )
+        {
+            return;
+        }
+        
         float mouseX = Input.GetAxis("Mouse X");
         float mouseY = Input.GetAxis("Mouse Y");
         
@@ -74,6 +79,11 @@ public class FirstPersonLogic : MonoBehaviour
     
     private void LateUpdate()
     {
+        if (_playerLogic && !_playerLogic.IsLocalPlayer() )
+        {
+            return;
+        }
+        
         transform.rotation = Quaternion.Euler(_rotationX, _playerLogic.GetRotationY(), 0);
     }
     

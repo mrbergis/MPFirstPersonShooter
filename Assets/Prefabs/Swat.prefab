@@ -401,8 +401,8 @@ GameObject:
   - component: {fileID: 7453060225302597354}
   - component: {fileID: 7453060225302597355}
   m_Layer: 0
-  m_Name: Main Camera
-  m_TagString: MainCamera
+  m_Name: Player Camera
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -701,6 +701,7 @@ MonoBehaviour:
   rightHandTarget: {fileID: 7453060225295701758}
   footstepSounds: []
   camera: {fileID: 7453060225302597352}
+  headRenderer: {fileID: 7217835955918333235}
 --- !u!114 &1235129533010778721
 MonoBehaviour:
   m_ObjectHideFlags: 0

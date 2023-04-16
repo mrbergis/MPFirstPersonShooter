@@ -37,6 +37,9 @@ public class PlayerLogic : NetworkBehaviour
     [SerializeField]
     GameObject camera;
     
+    [SerializeField]
+    SkinnedMeshRenderer headRenderer;
+    
     private void Start()
     {
         SetupCamera();
@@ -45,10 +48,17 @@ public class PlayerLogic : NetworkBehaviour
         _animator = GetComponent<Animator>();
         _weaponLogic = GetComponentInChildren<WeaponLogic>();
         _audioSource = GetComponent<AudioSource>();
+
+        SetupHeadRendering();
     }
     
     private void Update()
     {
+        if (!isLocalPlayer)
+        {
+            return;
+        }
+        
         _rotationY += Input.GetAxis("Mouse X") * ROTATION_SPEED;
         transform.rotation = Quaternion.Euler(0, _rotationY, 0);
         
@@ -67,6 +77,11 @@ public class PlayerLogic : NetworkBehaviour
 
     private void FixedUpdate()
     {
+        if (!isLocalPlayer)
+        {
+            return;
+        }
+        
         _horizontalMovement = transform.right * _horizontalInput * MOVEMENT_SPEED * Time.deltaTime;
         _verticalMovement = transform.forward * _verticalInput * MOVEMENT_SPEED * Time.deltaTime;
 
@@ -106,6 +121,21 @@ public class PlayerLogic : NetworkBehaviour
         if (camera && isLocalPlayer)
         {
             camera.SetActive(true);
+        }
+    }
+    
+    void SetupHeadRendering()
+    {
+        if (headRenderer)
+        {
+            if (isLocalPlayer)
+            {
+                headRenderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.ShadowsOnly;
+            }
+            else
+            {
+                headRenderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
+            }
         }
     }
     
@@ -152,5 +182,9 @@ public class PlayerLogic : NetworkBehaviour
         }
     }
      
+    public bool IsLocalPlayer()
+    {
+        return isLocalPlayer;
+    }
 }
 

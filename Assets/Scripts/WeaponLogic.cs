@@ -12,7 +12,6 @@ public class WeaponLogic : MonoBehaviour
     float _cooldown = 0.0f;
     
     Animator _animator;
-    Camera _mainCamera;
     PlayerLogic _playerLogic;
     FirstPersonLogic _firstPersonLogic;
     
@@ -41,13 +40,15 @@ public class WeaponLogic : MonoBehaviour
     
     Vector3 m_startPosition;
     const float TIME_SCALE = 2.0f;
+
+    private Camera _playerCamera;
     
     private void Start()
     {
         Cursor.visible = false;
         
         _animator = GetComponentInParent<Animator>();
-        _mainCamera = Camera.main;
+        _playerCamera = GetComponentInParent<Camera>();
         _playerLogic = GetComponentInParent<PlayerLogic>();
         _firstPersonLogic = GetComponentInParent<FirstPersonLogic>();
         _muzzleFlash = GetComponentInChildren<ParticleSystem>();
@@ -70,11 +71,12 @@ public class WeaponLogic : MonoBehaviour
     
     private void Update()
     {
-        transform.localPosition = m_startPosition 
-                                  + new Vector3(
-                                      0.0f, 
-                                      Mathf.Sin(Time.time * TIME_SCALE) / 100.0f, 
-                                      0.0f);
+        if (_playerLogic && !_playerLogic.IsLocalPlayer())
+        {
+            return;
+        }
+        
+        transform.localPosition = m_startPosition + new Vector3(0.0f, Mathf.Sin(Time.time * TIME_SCALE) / 100.0f, 0.0f);
         
         if (_cooldown > 0.0f)
         {
@@ -124,7 +126,7 @@ public class WeaponLogic : MonoBehaviour
         
         PlaySound(shootSound);
         
-        Ray ray = new Ray(_mainCamera.transform.position, _mainCamera.transform.forward);
+        Ray ray = new Ray(_playerCamera.transform.position, _playerCamera.transform.forward);
         RaycastHit rayHit;
 
         if (Physics.Raycast(ray, out rayHit, 100.0f))
