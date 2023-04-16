@@ -3,10 +3,6 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
-FirstPersonShooter/Library/
-FirstPersonShooter/obj/
-FirstPersonShooter/Temp/
-
 # User-specific files
 *.rsuser
 *.suo
