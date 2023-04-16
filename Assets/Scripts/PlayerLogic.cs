@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Mirror;
 using UnityEngine;
 
-public class PlayerLogic : MonoBehaviour
+public class PlayerLogic : NetworkBehaviour
 {
     private float _rotationY;
     private const float ROTATION_SPEED = 2.0f;
@@ -33,8 +34,13 @@ public class PlayerLogic : MonoBehaviour
     [SerializeField]
     List<AudioClip> footstepSounds;
     
+    [SerializeField]
+    GameObject camera;
+    
     private void Start()
     {
+        SetupCamera();
+        
         _characterController = GetComponent<CharacterController>();
         _animator = GetComponent<Animator>();
         _weaponLogic = GetComponentInChildren<WeaponLogic>();
@@ -87,6 +93,19 @@ public class PlayerLogic : MonoBehaviour
             }
             
             SetHandIK(AvatarIKGoal.RightHand, rightHandTarget);
+        }
+    }
+    
+    void SetupCamera()
+    {
+        if (Camera.main)
+        {
+            Camera.main.enabled = false;
+        }
+
+        if (camera && isLocalPlayer)
+        {
+            camera.SetActive(true);
         }
     }
     
