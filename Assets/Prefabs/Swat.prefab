@@ -704,6 +704,9 @@ MonoBehaviour:
   footstepSounds: []
   camera: {fileID: 7453060225302597352}
   headRenderer: {fileID: 7217835955918333235}
+  bodyRenderer: {fileID: 3502701527371630792}
+  blueMaterial: {fileID: 2100000, guid: 55a3af0758b9b4b7786b0c0d5cfd17b7, type: 2}
+  redMaterial: {fileID: 2100000, guid: 002cebf4782d44c19b4a4d57b6ae7571, type: 2}
 --- !u!114 &1235129533010778721
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1086,6 +1089,35 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 836991cb57f6e47a08963bf0e18e28e7, type: 3}
   m_PrefabInstance: {fileID: 7453060224393778679}
   m_PrefabAsset: {fileID: 0}
+--- !u!54 &7701843449229286075
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7759701165160835238}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!65 &1482158660925848920
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7759701165160835238}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.97179115, y: 0.17034887, z: 0.14002413}
+  m_Center: {x: 0.014104426, y: 0.18703626, z: 0.021193191}
 --- !u!82 &7453060224779254881
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1195,39 +1227,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletImpactObj: {fileID: 100006, guid: 94a130fb17f1cae4388a8fe1d8bd3055, type: 3}
-  ammoText: {fileID: 0}
   shootSound: {fileID: 8300000, guid: 6ae494d30058b4678ad4505f66575403, type: 3}
   emptyClipSound: {fileID: 8300000, guid: bf1dec11e90cd46d7993c0cd61c3ab7c, type: 3}
   reloadingSound: {fileID: 8300000, guid: e97a83125b25941c8913a27e35c28ab9, type: 3}
---- !u!65 &1482158660925848920
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7759701165160835238}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.97179115, y: 0.17034887, z: 0.14002413}
-  m_Center: {x: 0.014104426, y: 0.18703626, z: 0.021193191}
---- !u!54 &7701843449229286075
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7759701165160835238}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!4 &8181367154398864883 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -7573760595247517692, guid: 836991cb57f6e47a08963bf0e18e28e7, type: 3}

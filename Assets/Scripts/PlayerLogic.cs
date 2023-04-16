@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using Mirror;
 using UnityEngine;
 
+public enum Team
+{
+    Blue,
+    Red
+}
 public class PlayerLogic : NetworkBehaviour
 {
     private float _rotationY;
@@ -39,6 +44,9 @@ public class PlayerLogic : NetworkBehaviour
     
     [SerializeField]
     SkinnedMeshRenderer headRenderer;
+
+    [SerializeField]
+    SkinnedMeshRenderer bodyRenderer;
     
     NetworkAnimator _networkAnimator;
     
@@ -46,6 +54,15 @@ public class PlayerLogic : NetworkBehaviour
     int _health = MAX_HEALTH;
 
     bool _isDead = false;
+    
+    [SyncVar]
+    Team _team = Team.Blue;
+
+    [SerializeField]
+    Material blueMaterial;
+
+    [SerializeField]
+    Material redMaterial;
     
     private void Start()
     {
@@ -61,7 +78,10 @@ public class PlayerLogic : NetworkBehaviour
         
         SetHealthText();
     }
-    
+    public override void OnStartClient()
+    {
+        SetColor(_team);
+    }
     private void Update()
     {
         if (!isLocalPlayer || _isDead)
@@ -84,7 +104,6 @@ public class PlayerLogic : NetworkBehaviour
             }
         }
     }
-
     private void FixedUpdate()
     {
         if (!isLocalPlayer || _isDead)
@@ -107,7 +126,6 @@ public class PlayerLogic : NetworkBehaviour
         }
        
     }
-    
     private void OnAnimatorIK(int layerIndex)
     {
         if(_animator && !_isDead)
@@ -120,16 +138,37 @@ public class PlayerLogic : NetworkBehaviour
             SetHandIK(AvatarIKGoal.RightHand, rightHandTarget);
         }
     }
-    
-    void SetHealthText()
+    private void SetColor(Team team)
+    {
+        if(_team == Team.Blue)
+        {
+            SetMaterial(blueMaterial);
+        }
+        else if(_team == Team.Red)
+        {
+            SetMaterial(redMaterial);
+        }
+    }
+    private void SetMaterial(Material material)
+    {
+        // Body
+        Material[] mats = bodyRenderer.materials;
+        mats[0] = material;
+        bodyRenderer.materials = mats;
+
+        // Head
+        mats = headRenderer.materials;
+        mats[0] = material;
+        headRenderer.materials = mats;
+    }
+    private void SetHealthText()
     {
         if (UIManager.Instance && isLocalPlayer)
         {
             UIManager.Instance.SetHealthText(_health);
         }
     }
-    
-    void SetupCamera()
+    private void SetupCamera()
     {
         if (Camera.main)
         {
@@ -141,8 +180,7 @@ public class PlayerLogic : NetworkBehaviour
             camera.SetActive(true);
         }
     }
-    
-    void SetupHeadRendering()
+    private void SetupHeadRendering()
     {
         if (headRenderer)
         {
@@ -156,7 +194,6 @@ public class PlayerLogic : NetworkBehaviour
             }
         }
     }
-    
     private void SetHandIK(AvatarIKGoal avatarIKGoal, Transform target)
     {
         if(target)
@@ -175,6 +212,44 @@ public class PlayerLogic : NetworkBehaviour
             _audioSource.volume = volume;
             _audioSource.PlayOneShot(sound);
         }
+    }
+    [ClientRpc]
+    private void RpcDie()
+    {
+        if(_animator)
+        {
+            _animator.SetTrigger("Die");
+        }
+
+        if (_networkAnimator)
+        {
+            _networkAnimator.SetTrigger("Die");
+        }
+        
+        if(_weaponLogic)
+        {
+            _weaponLogic.DropWeapon();
+        }
+
+        _isDead = true;
+    }
+    [ClientRpc]
+    private void RpcSetHealth(int health)
+    {
+        _health = health;
+        
+        SetHealthText();
+    }
+    [ClientRpc]
+    void RpcSetTeam(Team team)
+    {
+        _team = team;
+        SetColor(_team);
+    }
+    
+    public void SetTeam(Team team)
+    {
+        RpcSetTeam(team);
     }
     public float GetRotationY()
     {
@@ -248,35 +323,6 @@ public class PlayerLogic : NetworkBehaviour
         }
     }
     
-    [ClientRpc]
-    void RpcDie()
-    {
-        if(_animator)
-        {
-            _animator.SetTrigger("Die");
-        }
-
-        if (_networkAnimator)
-        {
-            _networkAnimator.SetTrigger("Die");
-        }
-        
-        if(_weaponLogic)
-        {
-            _weaponLogic.DropWeapon();
-        }
-
-        _isDead = true;
-    }
-
-    [ClientRpc]
-    void RpcSetHealth(int health)
-    {
-        _health = health;
-        
-        SetHealthText();
-    }
-
     public bool IsDead()
     {
         return _isDead;
