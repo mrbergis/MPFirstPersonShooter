@@ -520,9 +520,10 @@ GameObject:
   - component: {fileID: 1235129533010778721}
   - component: {fileID: 578292185745594295}
   - component: {fileID: 8556777279715830445}
+  - component: {fileID: 8896499504947172811}
   m_Layer: 0
   m_Name: Swat
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -771,6 +772,22 @@ MonoBehaviour:
   syncInterval: 0
   clientAuthority: 0
   animator: {fileID: 3892239692162000818}
+--- !u!114 &8896499504947172811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7759701165154002802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e3b6a75cab9e489d8559407ef03db76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  playerCamera: {fileID: 7453060225302597354}
 --- !u!1 &7886447580574576709
 GameObject:
   m_ObjectHideFlags: 0

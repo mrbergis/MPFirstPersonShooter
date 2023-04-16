@@ -59,6 +59,7 @@
      <Compile Include="Assets/JMO Assets/WarFX/Demo/Assets/CFX_Demo_Translate.cs" />
      <Compile Include="Assets/Scripts/ReloadBehaviour.cs" />
      <Compile Include="Assets/JMO Assets/WarFX/Demo/Assets/WFX_Demo_New.cs" />
+     <Compile Include="Assets/Scripts/WeaponLogicMP.cs" />
      <Folder Include="Assets" />
      <None Include="Assets/TextMesh Pro/Shaders/TMPro.cginc" />
      <None Include="Assets/JMO Assets/WarFX/Shaders/WFX_S Multiply Soft.shader" />
@@ -193,6 +194,7 @@
      <Folder Include="Assets/JMO Assets/WarFX/_Effects (Mobile)" />
      <None Include="Assets/JMO Assets/WarFX/Shaders/WFX_S AlphaBlend NoSoftParticles.shader" />
      <Folder Include="Assets/JMO Assets/WarFX/_Effects/Smoke" />
+     <Folder Include="Assets/Prefabs" />
      <Folder Include="Assets/JMO Assets/WarFX/_Effects/MuzzleFlashes/FPS" />
      <None Include="Assets/TextMesh Pro/Sprites/EmojiOne.json" />
      <Folder Include="Assets/JMO Assets/WarFX" />

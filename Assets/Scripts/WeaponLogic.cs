@@ -37,16 +37,15 @@ public class WeaponLogic : MonoBehaviour
     [SerializeField]
     AudioClip reloadingSound;
     
-    Vector3 m_startPosition;
+    Vector3 _startPosition;
     const float TIME_SCALE = 2.0f;
-
-    private Camera _playerCamera;
+    
+    WeaponLogicMP _weaponLogicMP;
     
     private void Start()
     {
         Cursor.visible = false;
         
-        _playerCamera = GetComponentInParent<Camera>();
         _playerLogic = GetComponentInParent<PlayerLogic>();
         _firstPersonLogic = GetComponentInParent<FirstPersonLogic>();
         _muzzleFlash = GetComponentInChildren<ParticleSystem>();
@@ -54,7 +53,9 @@ public class WeaponLogic : MonoBehaviour
         
         _audioSource = GetComponent<AudioSource>();
         
-        m_startPosition = transform.localPosition;
+        _weaponLogicMP = GetComponentInParent<WeaponLogicMP>();
+        
+        _startPosition = transform.localPosition;
         
         SetAmmoText();
     }
@@ -69,12 +70,20 @@ public class WeaponLogic : MonoBehaviour
     
     private void Update()
     {
+        if(_lightTimer > 0.0f)
+        {
+            _lightTimer -= Time.deltaTime;
+        }else
+        {
+            _muzzleFlashLight.enabled = false;
+        }
+        
         if (_playerLogic && !_playerLogic.IsLocalPlayer())
         {
             return;
         }
         
-        transform.localPosition = m_startPosition + new Vector3(0.0f, Mathf.Sin(Time.time * TIME_SCALE) / 100.0f, 0.0f);
+        transform.localPosition = _startPosition + new Vector3(0.0f, Mathf.Sin(Time.time * TIME_SCALE) / 100.0f, 0.0f);
         
         if (_cooldown > 0.0f)
         {
@@ -101,14 +110,6 @@ public class WeaponLogic : MonoBehaviour
         {
             Reload();
         }
-        
-        if(_lightTimer > 0.0f)
-        {
-            _lightTimer -= Time.deltaTime;
-        }else
-        {
-            _muzzleFlashLight.enabled = false;
-        }
     }
 
     private void Shoot()
@@ -124,39 +125,37 @@ public class WeaponLogic : MonoBehaviour
         
         PlaySound(shootSound);
         
-        Ray ray = new Ray(_playerCamera.transform.position, _playerCamera.transform.forward);
-        RaycastHit rayHit;
-
-        if (Physics.Raycast(ray, out rayHit, 100.0f))
+        if (_weaponLogicMP)
         {
-            Debug.Log("Hit object: " + rayHit.collider.name);
-            Debug.Log("Hit Pos: " + rayHit.point);
-            
-            // Spawn Bullet Impact FX
-            if(bulletImpactObj)
-            {
-                GameObject.Instantiate(bulletImpactObj, rayHit.point, 
-                    Quaternion.FromToRotation(Vector3.up, rayHit.normal) 
-                    * Quaternion.Euler(-90, 0, 0));
-            }
+            _weaponLogicMP.CmdShoot();
         }
-        
-        if(_firstPersonLogic)
+    }
+    
+    public void ShootEffect(Vector3 impactPosition, Quaternion impactRotation, bool spawnBulletImpact)
+    {
+        // Spawn Bullet Impact FX
+        if (bulletImpactObj && spawnBulletImpact)
+        {
+            GameObject.Instantiate(bulletImpactObj, impactPosition, impactRotation);
+        }
+
+        if (_firstPersonLogic)
         {
             _firstPersonLogic.AddRecoil();
         }
-         
-        if(_playerLogic)
+
+        if (_playerLogic)
         {
             _playerLogic.AddRecoil();
         }
-        if(_muzzleFlash)
+
+        if (_muzzleFlash)
         {
             _muzzleFlash.Play(true);
         }
 
-        if(_muzzleFlashLight)
-        { 
+        if (_muzzleFlashLight)
+        {
             _muzzleFlashLight.enabled = true;
             _lightTimer = MAX_LIGHT_TIME;
         }

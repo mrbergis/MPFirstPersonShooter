@@ -215,5 +215,10 @@ public class PlayerLogic : NetworkBehaviour
             _networkAnimator.SetTrigger("Reload");
         }
     }
+    
+    public void TakeDamage(int damage)
+    {
+        
+    }
 }
 
