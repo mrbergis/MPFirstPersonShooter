@@ -108,7 +108,7 @@ public class PlayerLogic : NetworkBehaviour
     
     private void OnAnimatorIK(int layerIndex)
     {
-        if(_animator)
+        if(_animator && !_isDead)
         {
             if(_weaponLogic && !_weaponLogic.IsReloading())
             {
@@ -249,6 +249,11 @@ public class PlayerLogic : NetworkBehaviour
         if (_networkAnimator)
         {
             _networkAnimator.SetTrigger("Die");
+        }
+        
+        if(_weaponLogic)
+        {
+            _weaponLogic.DropWeapon();
         }
 
         _isDead = true;

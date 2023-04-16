@@ -42,6 +42,8 @@ public class WeaponLogic : MonoBehaviour
     
     WeaponLogicMP _weaponLogicMP;
     
+    Rigidbody _rigidBody;
+    
     private void Start()
     {
         Cursor.visible = false;
@@ -57,7 +59,20 @@ public class WeaponLogic : MonoBehaviour
         
         _startPosition = transform.localPosition;
         
+        _rigidBody = GetComponent<Rigidbody>();
+        
         SetAmmoText();
+    }
+    
+    public void DropWeapon()
+    {
+        transform.parent = null;
+
+        if(_rigidBody)
+        {
+            _rigidBody.isKinematic = false;
+            _rigidBody.useGravity = true;
+        }
     }
     
     private void SetAmmoText()
