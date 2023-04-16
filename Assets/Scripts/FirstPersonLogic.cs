@@ -32,7 +32,7 @@ public class FirstPersonLogic : MonoBehaviour
     
     void Update()
     {
-        if (_playerLogic && !_playerLogic.IsLocalPlayer() )
+        if (_playerLogic && (!_playerLogic.IsLocalPlayer() || _playerLogic.IsDead()))
         {
             return;
         }
@@ -79,7 +79,7 @@ public class FirstPersonLogic : MonoBehaviour
     
     private void LateUpdate()
     {
-        if (_playerLogic && !_playerLogic.IsLocalPlayer() )
+        if (_playerLogic && (!_playerLogic.IsLocalPlayer() || _playerLogic.IsDead()))
         {
             return;
         }

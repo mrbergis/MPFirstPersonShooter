@@ -78,7 +78,7 @@ public class WeaponLogic : MonoBehaviour
             _muzzleFlashLight.enabled = false;
         }
         
-        if (_playerLogic && !_playerLogic.IsLocalPlayer())
+        if (_playerLogic && (!_playerLogic.IsLocalPlayer() || _playerLogic.IsDead()))
         {
             return;
         }

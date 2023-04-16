@@ -42,6 +42,11 @@ public class PlayerLogic : NetworkBehaviour
     
     NetworkAnimator _networkAnimator;
     
+    const int MAX_HEALTH = 100;
+    int _health = MAX_HEALTH;
+
+    bool _isDead = false;
+    
     private void Start()
     {
         SetupCamera();
@@ -57,7 +62,7 @@ public class PlayerLogic : NetworkBehaviour
     
     private void Update()
     {
-        if (!isLocalPlayer)
+        if (!isLocalPlayer || _isDead)
         {
             return;
         }
@@ -80,7 +85,7 @@ public class PlayerLogic : NetworkBehaviour
 
     private void FixedUpdate()
     {
-        if (!isLocalPlayer)
+        if (!isLocalPlayer || _isDead)
         {
             return;
         }
@@ -218,7 +223,46 @@ public class PlayerLogic : NetworkBehaviour
     
     public void TakeDamage(int damage)
     {
-        
+        if(!isServer)
+        {
+            return;
+        }
+
+        _health -= damage;
+        _health = Mathf.Clamp(_health, 0, MAX_HEALTH);
+        RpcSetHealth(_health);
+
+        if (_health == 0)
+        {
+            RpcDie();
+        }
+    }
+    
+    [ClientRpc]
+    void RpcDie()
+    {
+        if(_animator)
+        {
+            _animator.SetTrigger("Die");
+        }
+
+        if (_networkAnimator)
+        {
+            _networkAnimator.SetTrigger("Die");
+        }
+
+        _isDead = true;
+    }
+
+    [ClientRpc]
+    void RpcSetHealth(int health)
+    {
+        _health = health;
+    }
+
+    public bool IsDead()
+    {
+        return _isDead;
     }
 }
 
