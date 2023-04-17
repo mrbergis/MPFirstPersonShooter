@@ -20,6 +20,11 @@ public class PlayerLogic : NetworkBehaviour
     
     private Vector3 _horizontalMovement;
     private Vector3 _verticalMovement;
+    private Vector3 _heightMovement;
+    
+    float _jumpHeight = 0.25f;
+    float _gravity = 0.981f;
+    bool _jump = false;
     
     private CharacterController _characterController;
     private Animator _animator;
@@ -103,6 +108,10 @@ public class PlayerLogic : NetworkBehaviour
                 _animator.SetBool("IsCrouching", _isCrouching);
             }
         }
+        if(Input.GetButtonDown("Jump") && _characterController.isGrounded)
+        {
+            _jump = true;
+        }
     }
     private void FixedUpdate()
     {
@@ -111,12 +120,20 @@ public class PlayerLogic : NetworkBehaviour
             return;
         }
         
+        if(_jump)
+        {
+            _heightMovement.y = _jumpHeight;
+            _jump = false;
+        }
+
+        _heightMovement.y -= _gravity * Time.deltaTime;
+
         _horizontalMovement = transform.right * _horizontalInput * MOVEMENT_SPEED * Time.deltaTime;
         _verticalMovement = transform.forward * _verticalInput * MOVEMENT_SPEED * Time.deltaTime;
 
-        if (_characterController  && !_isCrouching)
+        if (_characterController && !_isCrouching)
         {
-            _characterController.Move(_horizontalMovement + _verticalMovement);
+            _characterController.Move(_horizontalMovement + _verticalMovement + _heightMovement);
         }
         
         if(_animator)

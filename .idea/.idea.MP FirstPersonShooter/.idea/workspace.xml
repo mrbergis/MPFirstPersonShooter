@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="24e8c367-691b-4f67-8ca5-9da0c0042d0a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.MP FirstPersonShooter/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.MP FirstPersonShooter/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assembly-CSharp.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Assembly-CSharp.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayerLogic.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PlayerLogic.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -87,7 +87,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1681676134253</updated>
-      <workItem from="1681676142514" duration="11388000" />
+      <workItem from="1681676142514" duration="12311000" />
     </task>
     <servers />
   </component>
